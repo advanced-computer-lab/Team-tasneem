@@ -41,22 +41,23 @@ flightController.get('/view-flights', (req, res) => {
     });
   
   //Get a certain entered flight with known attributes
-  flightController.post('/search-flights', (req, res) => {
-      //check nulls
-      console.log("Controller: ");
-     const searchFlight = flight.find({flightNumber:req.body.flightNumber,
-        departureTime:req.body.departureTime,
-    arrivalTime:req.body.arrivalTime,
-    arrivalTerminal:req.body.arrivalTerminal,
-    departureTerminal:req.body.departureTerminal})
-        .then(result => {
-            res.send(result);
-            console.log(searchFlight);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    });
+  flightController.post('/search-flights', async (req, res) => {
+    //check nulls
+    console.log("Controller: ");
+   const searchFlight = await flight.find({flightNumber:req.body.flightNumber,
+      departureTime:req.body.departureTime,
+  arrivalTime:req.body.arrivalTime,
+  arrivalTerminal:req.body.arrivalTerminal,
+  departureTerminal:req.body.departureTerminal})
+      .then(result => {
+          console.log("Searching..");
+          res.send(result);
+          console.log(result);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  });
     
     //Updating an existing flight
     flightController.put('/update-flights', (req,res)=>{
