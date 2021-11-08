@@ -1,6 +1,11 @@
 // #Task route solution
 const User = require('../models/User');
-exports.addUser = (req, res) => {
+const mongoose = require('mongoose');
+var express = require('express');
+
+var userController = express.Router();
+
+userController.post('/add-user',function(req,res){
     
     const user = new User({
         UserName:"Tasneem", 
@@ -24,9 +29,10 @@ exports.addUser = (req, res) => {
       .catch(err => {
         console.log(err);
       });
-  };
+  });
 
   
+module.exports = userController;
 // // getting all the users
 
 // exports.viewUsers = (req, res) => {                                               ``
