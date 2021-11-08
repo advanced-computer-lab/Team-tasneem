@@ -39,7 +39,7 @@ const flight =require("./src/models/flight");
 
 app.use('/',flightController);
 
-app.use('/', userController);
+app.use('/add-user', userController);
 
 
 
