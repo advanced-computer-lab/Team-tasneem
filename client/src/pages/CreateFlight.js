@@ -1,5 +1,5 @@
 import React from 'react'
-import {useState } from 'react';
+import {useState  } from 'react';
 import axios from "axios";
 
 export default function CreateFlight() {
@@ -22,6 +22,8 @@ export default function CreateFlight() {
     const [departureTerminal, setDepartureTerminal]=useState('');
     const [arrivalTerminal, setArrivalTerminal]=useState('');
   
+
+   
     async function addFlight(event){
         event.preventDefault();
 const response = await fetch('http://localhost:8000/add-flights',{

@@ -27,7 +27,7 @@ const port = process.env.PORT || "8000";
 const chalk = require('chalk');
 const cors = require('cors')
 const flightController = require('./src/Routes/flightController');  //router
-const userController = require('./src/Routes/userController');
+// const userController = require('./src/Routes/userController');
 //middleware
 
  
@@ -39,7 +39,7 @@ const flight =require("./src/models/flight");
 
 app.use('/',flightController);
 
-app.use('/add-user', userController);
+// app.use('/add-user', userController);
 
 
 

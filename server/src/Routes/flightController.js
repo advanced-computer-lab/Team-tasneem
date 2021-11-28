@@ -51,7 +51,7 @@ flightController.get('/view-flights', (req, res) => {
   departureTerminal:req.body.departureTerminal})
       .then(result => {
           console.log("Searching..");
-          res.send(result);
+          res.send(JSON.stringify(result));
           console.log(result);
       })
       .catch(err => {

@@ -1,9 +1,8 @@
-//minute 20:47
-
 import React from 'react'
-import {useState, useLocation, useHistory } from 'react';
+import {useState, useEffect } from 'react';
 import {Link, Switch, Route, BrowserRouter as Router} from 'react-router-dom';
 import axios from "axios";
+
 import SearchResults from './SearchResults'; 
 
 export default function SearchFlights() {
@@ -16,11 +15,59 @@ export default function SearchFlights() {
     const [arrivalTime, setArrivalTime]=useState('');
     const [departureTerminal, setDepartureTerminal]=useState('');
     const [arrivalTerminal, setArrivalTerminal]=useState('');
+    const [flights , getFlights]=useState('');
+    const [setFlights1, setFlights] = useState('');
     // const [searchResults, setSearchResults]=useState([]);
   
     
-    async function SearchFlights(event){
-        event.preventDefault();
+        useEffect(() => {
+            axios
+        .post('http://localhost:8000/search-flights')
+        .then(res => res.json())
+        .then((res) => {
+        //   this.setState({
+        //       flightNumber: '',
+        //       to:'',
+        //       from:'',
+        //       departureTime:Date,
+        //       arrivalTime: Date,
+        //       departureTerminal:Number,
+        //       arrivalTerminal:Number
+        //   })
+        setFlights(res); 
+        //   console.log("res");
+        //   console.log(res);
+        //   console.log(res.data);
+        //   getFlights(res.data);
+        //   this.props.history.push('/search-flights',res);
+      
+      }
+      )
+        .catch(err => {
+            console.log("error");
+            console.log(err);
+          console.log("Error in SearchFlight!");
+        })
+        return (
+             <SearchResults flights = {flights} />
+        )
+
+        } );
+
+           
+           
+            
+
+
+                
+    
+   
+        // document.title = `You clicked ${flightNumber} times`;
+     
+        // [flightNumber , to , from , departureTime , arrivalTime , departureTerminal , arrivalTerminal]
+    
+//     async function SearchFlights(event){
+//         event.preventDefault();
 
     //     axios
     //     .post('http://localhost:8000/search-flights', data)
@@ -48,27 +95,27 @@ export default function SearchFlights() {
     //     })
       
 
-const response = await fetch('http://localhost:8000/search-flights',{
-    method:'POST',
-    headers: {
-        'Content-Type':'application/json',
-    },
-    body: JSON.stringify({
-        flightNumber,
-        to,
-        from,
-        departureTime,
-        arrivalTime,
-        departureTerminal,
-        arrivalTerminal
-    }),    
-}   
-)
+// const response = await fetch('http://localhost:8000/search-flights',{
+//     method:'POST',
+//     headers: {
+//         'Content-Type':'application/json',
+//     },
+//     body: JSON.stringify({
+//         flightNumber,
+//         to,
+//         from,
+//         departureTime,
+//         arrivalTime,
+//         departureTerminal,
+//         arrivalTerminal
+//     }),    
+// }   
+// )
 
-const data = await response.json();
-console.log("data");
-console.log(data);
-    }
+// const data = await response.json();
+// console.log("data");
+// console.log(data);
+//     }
 
 
 
@@ -76,16 +123,14 @@ console.log(data);
    
 
 //  console.log(data);
-    
+
 
 return (
-   
-    
-    
-    <><div>
+    <>
+    <div>
         <h1>Search Flight</h1>
 
-        <form onSubmit={SearchFlights}>
+        <form onSubmit={SearchResults}>
             <input
                 value={flightNumber}
                 onChange={(e) => setFlightNumber(e.target.value)}
@@ -147,22 +192,7 @@ return (
 
         
     </div>
-        {/* <Router>
-            <Link to={
-                {
-                pathname: "/search-flights",
-                state: {
-                    from:"search-flights"
-                }
-            }
-            }>search</Link> 
-            <Switch>
-                <Route path="/search-results">
-                    <SearchFlights />
-                </Route> 
-             </Switch>
-
-        </Router> */}
+        
         </>
    
 )
