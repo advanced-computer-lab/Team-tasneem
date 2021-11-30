@@ -51,9 +51,17 @@ const FlightSchema = new Schema({
         type: Number,
         required: true
       },
+      availableEconomySeats:{
+        type: [Number]
+      },
+      availableBusinessSeats:{
+        type: [Number]
+      },
+      availableFirstSeats:{
+        type: [Number]
+      },
       returnFlightID: {
         type: Number,
-        
       },
       from: {
         type: String,

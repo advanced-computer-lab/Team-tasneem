@@ -14,11 +14,11 @@ MongoClient.connect(uri, function (err, client) {
   var db = client.db('myFirstDatabase');
   if (err) throw err;
 
-//   db.createCollection("flights", function (err, res) {
-//       if (err) throw err;
-//       console.log("Collection created!");
-//       client.close();
-//   });
+  // db.createCollection("flights", function (err, res) {
+  //     if (err) throw err;
+  //     console.log("Collection created!");
+  //     client.close();
+  // });
 });
 
 //App variables

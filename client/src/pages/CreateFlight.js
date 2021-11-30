@@ -1,6 +1,7 @@
 import React from 'react'
 import {useState  } from 'react';
 import axios from "axios";
+import PopUp from "./PopUp";
 
 export default function CreateFlight() {
 
@@ -21,74 +22,92 @@ export default function CreateFlight() {
     const [returnFlightID, setReturnFlightID]=useState('');
     const [departureTerminal, setDepartureTerminal]=useState('');
     const [arrivalTerminal, setArrivalTerminal]=useState('');
-  
+    const [businessSeats, setBusinessSeats]=useState([]);
+    const [economySeats, setEconomySeats]=useState([]);
+    const [firstClassSeats, setFirstClassSeats]=useState([]);
+    const [addedPopUp, setAddedPopUp] = useState(false);
+    const [errorPopUp, setErrorPopUp] = useState(false);
+   
 
    
-    async function addFlight(event){
-        event.preventDefault();
-const response = await fetch('http://localhost:8000/add-flights',{
-    method:'POST',
-    headers: {
-        'Content-Type':'application/json',
-    },
-    body: JSON.stringify({
-        flightNumber,
-        to,
-        from,
-        departureTime,
-        arrivalTime,
-        tripDuration,
-        baggageAllowance,
-        totalSeats,
-        noOfEconomySeats,
-        noOfFirstSeats,
-        noOfBusinessSeats,
-        economyPrice,
-        businessPrice,
-        firstClassPrice,
-        returnFlightID,
-        departureTerminal,
-        arrivalTerminal
-    }),    
-})
+    let data;
+    let createFlight = (e) => {
 
-const data = await response.json();
-console.log(data);
-axios
+        e.preventDefault();
+        console.log("adding....");
+        setAddedPopUp(false);
+        setErrorPopUp(false);
+        // let businessSeatsArr=[];
+        // for(const seat in noOfBusinessSeats){
+        //         businessSeatsArr[seat] = seat+1;
+        // }
+        // setBusinessSeats(businessSeatsArr);
+        // let economySeatsArr=[];
+        // for(const seat in noOfEconomySeats){
+        //         economySeatsArr[seat] = seat+1;
+        // }
+        // setEconomySeats(economySeatsArr);
+        // let firstClassSeatsArr=[];
+        // for(const seat in noOfBusinessSeats){
+        //         firstClassSeatsArr[seat] = seat+1;
+        // }
+        // setFirstClassSeats(firstClassSeatsArr);
+       
+    if(flightNumber==''||to==''||from==''
+        ||departureTime==''||arrivalTime==''||
+        departureTerminal==''||arrivalTerminal==''||
+        tripDuration==''||baggageAllowance==''||
+        totalSeats==''||noOfBusinessSeats==''||noOfEconomySeats==''
+        ||noOfFirstSeats==''||economyPrice==''||businessPrice==''
+        ||firstClassPrice==''||arrivalTerminal==''
+        ||departureTerminal==''){
+            setErrorPopUp(true);setErrorPopUp(true);
+            setAddedPopUp(false);
+            return;
+        }
+       
+        data = {
+            flightNumber: flightNumber,
+            to: to,
+            from: from,
+            departureTime: departureTime,
+            arrivalTime: arrivalTime,
+            departureTerminal: departureTerminal,
+            arrivalTerminal: arrivalTerminal,
+            tripDuration: tripDuration ,
+            baggageAllowance:baggageAllowance,
+            totalSeats:totalSeats,
+            noOfEconomySeats: noOfEconomySeats,
+            noOfBusinessSeats: noOfBusinessSeats,
+            noOfFirstSeats: noOfFirstSeats,
+            businessPrice:businessPrice,
+            firstClassPrice:firstClassPrice,
+            economyPrice:economyPrice,
+            returnFlightID:returnFlightID,
+            businessSeats:businessSeats,
+            economySeats:economySeats,
+            firstClassSeats:firstClassSeats
+          };  
+       axios
       .post('http://localhost:8000/add-flights', data)
       .then(res => {
-        this.setState({
-            flightNumber: '',
-            From:'',
-            To:'',
-            departureTime:Date,
-            arrivalTime: Date,
-            tripDuration: Number ,
-            baggageAllowance:Number,
-            totalSeats:Number,
-            noOfEconomySeats: Number,
-            noOfBussinessSeats: Number,
-            noOfFirstSeats: Number,
-            businessPrice:Number,
-            firstClassPrice:Number,
-            economyPrice:Number,
-            returnFlightID:Number,
-            departureTerminal:Number,
-            arrivalTerminal:Number
-    
-        })
+        setAddedPopUp(true);
+        console.log("added");
+        console.log(res.data);
         this.props.history.push('/');
-        
+       
       })
       .catch(err => {
         console.log("Error in CreateFlight!");
+        setErrorPopUp(true);
+        console.log(err);
       })
     }
-    
+   
     return (
         <div>
             <h1>Add Flight</h1>
-            <form onSubmit={addFlight}>
+            <form onSubmit={(event) => {createFlight(event)}}>
                 <input
                 value={flightNumber}
                 onChange={(e) => setFlightNumber(e.target.value)}
@@ -111,7 +130,7 @@ axios
                 />
 
                 <br></br><br></br>
-                
+               
                 <input
                 value={departureTime}
                 onChange={(e) => setDepartureTime(e.target.value)}
@@ -119,7 +138,7 @@ axios
                 placeholder="Departure Time"
                 />
 
-<br></br><br></br>
+                <br></br><br></br>
 
                 <input
                 value={arrivalTime}
@@ -128,7 +147,7 @@ axios
                 placeholder="Arrival Time"
                 />
 
-<br></br><br></br>
+                <br></br><br></br>
 
                 <input
                 value={tripDuration}
@@ -137,7 +156,7 @@ axios
                 placeholder="Trip Duration"
                 />
 
-<br></br><br></br>
+                <br></br><br></br>
 
                 <input
                 value={baggageAllowance}
@@ -146,7 +165,7 @@ axios
                 placeholder="Baggage Allowance"
                 />
 
-<br></br><br></br>
+                <br></br><br></br>
 
                 <input
                 value={totalSeats}
@@ -155,7 +174,7 @@ axios
                 placeholder="Total Seats"
                 />
 
-<br></br><br></br>
+                <br></br><br></br>
 
                 <input
                 value={noOfBusinessSeats}
@@ -164,7 +183,7 @@ axios
                 placeholder="Number Of Business Class Seats"
                 />
 
-<br></br><br></br>
+                <br></br><br></br>
 
                 <input
                 value={noOfEconomySeats}
@@ -173,7 +192,7 @@ axios
                 placeholder="Number Of Economy Seats"
                 />
 
-<br></br><br></br>
+                <br></br><br></br>
 
                 <input
                 value={noOfFirstSeats}
@@ -182,7 +201,7 @@ axios
                 placeholder="Number Of First Class Seats"
                 />
 
-<br></br><br></br>
+                <br></br><br></br>
 
                 <input
                 value={economyPrice}
@@ -190,7 +209,7 @@ axios
                 type="number"
                 placeholder="Economy Seat Price"
                 />
-            
+           
             <br></br><br></br>
 
             <input
@@ -200,7 +219,7 @@ axios
                 placeholder="Business Seat Price"
                 />
 
-<br></br><br></br>
+                <br></br><br></br>
 
                 <input
                 value={firstClassPrice}
@@ -209,7 +228,7 @@ axios
                 placeholder="First Class Seat Price"
                 />
 
-<br></br><br></br>
+                <br></br><br></br>
 
                 <input
                 value={returnFlightID}
@@ -218,7 +237,7 @@ axios
                 placeholder="Return Flight ID"
                 />
 
-<br></br><br></br>
+                <br></br><br></br>
                 <input
                 value={arrivalTerminal}
                 onChange={(e) => setArrivalTerminal(e.target.value)}
@@ -226,15 +245,15 @@ axios
                 placeholder="Arrival Terminal"
                 />
 
-<br></br><br></br>
-<input
+                <br></br><br></br>
+                <input
                 value={departureTerminal}
                 onChange={(e) => setDepartureTerminal(e.target.value)}
                 type="number"
                 placeholder="Departure Terminal"
                 />
 
-<br></br><br></br>
+                <br></br><br></br>
 
 
                 <input type="submit" value="add flight">
@@ -243,7 +262,50 @@ axios
                 <br></br><br></br>
 
                 </form>
+                <div>
+            <PopUp trigger ={addedPopUp}>
+                <p>Flight added successfully!</p>
+            </PopUp>
+        </div>
+        <div>
+            <PopUp trigger ={errorPopUp}>
+                <p>please fill all the required fields</p>
+            </PopUp>
+        </div>
 
         </div>
+       
     )
 }
+
+
+
+//         event.preventDefault();
+// const response = await fetch('http://localhost:8000/add-flights',{
+//     method:'POST',
+//     headers: {
+//         'Content-Type':'application/json',
+//     },
+//     body: JSON.stringify({
+//         flightNumber,
+//         to,
+//         from,
+//         departureTime,
+//         arrivalTime,
+//         tripDuration,
+//         baggageAllowance,
+//         totalSeats,
+//         noOfEconomySeats,
+//         noOfFirstSeats,
+//         noOfBusinessSeats,
+//         economyPrice,
+//         businessPrice,
+//         firstClassPrice,
+//         returnFlightID,
+//         departureTerminal,
+//         arrivalTerminal
+//     }),    
+// })
+
+// const data = await response.json();
+// console.log(data);

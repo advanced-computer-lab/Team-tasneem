@@ -13,13 +13,33 @@ flightController.get('/',function(req,res){
 });
 
 flightController.post('/add-flights', (req, res) => {
-     
-    const newFlight = new flight(req.body);
+     const businessSeats=req.body.noOfBusinessSeats;
+     let businessSeatsArray=[]
+     for (let i = 0; i < businessSeats; i++ ) {
+       businessSeatsArray[i]=i+1;
+
+     }
+     const economySeats=req.body.noOfEconomySeats;
+     let economySeatsArray=[]
+     for (let i = 0; i < economySeats; i++ ) {
+       economySeatsArray[i]=i+1;
+
+     }
+     const firstSeats=req.body.noOfFirstSeats;
+     let firstSeatsArray=[]
+     for (let i = 0; i < firstSeats; i++ ) {
+       firstSeatsArray[i]=i+1;
+     }
+     req.body.availableBusinessSeats=businessSeatsArray;
+     req.body.availableEconomySeats=economySeatsArray;
+     req.body.availableFirstSeats=firstSeatsArray;
+const newFlight = new flight(req.body);
   console.log(newFlight);
   newFlight.save()
         .then(result => {
           res.status(200).send(result);
           console.log(chalk.bold.green("The flight was created successfully !"));
+
         })
         .catch(err => {
           console.log(err);
