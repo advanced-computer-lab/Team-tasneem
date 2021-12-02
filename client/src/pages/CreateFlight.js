@@ -1,10 +1,10 @@
 import React from 'react'
-import {useState  } from 'react';
+import {useState} from 'react';
 import axios from "axios";
 import PopUp from "./PopUp";
 
 export default function CreateFlight() {
-
+  //add link tag to button to navigate
     const [flightNumber, setFlightNumber]=useState('');
     const [to, setTo]=useState('');
     const [from, setFrom]=useState('');
@@ -22,13 +22,26 @@ export default function CreateFlight() {
     const [returnFlightID, setReturnFlightID]=useState('');
     const [departureTerminal, setDepartureTerminal]=useState('');
     const [arrivalTerminal, setArrivalTerminal]=useState('');
-    const [businessSeats, setBusinessSeats]=useState([]);
-    const [economySeats, setEconomySeats]=useState([]);
-    const [firstClassSeats, setFirstClassSeats]=useState([]);
     const [addedPopUp, setAddedPopUp] = useState(false);
     const [errorPopUp, setErrorPopUp] = useState(false);
    
-
+    const [returnFlightNumber, setReturnFlightNumber]=useState('');
+    const [returnTo, setReturnTo]=useState('');
+    const [returnFrom, setReturnFrom]=useState('');
+    const [returnDepartureTime, setReturnDepartureTime]=useState('');
+    const [returnArrivalTime, setReturnArrivalTime]=useState('');
+    const [returnTripDuration, setReturnTripDuration]=useState('');
+    const [returnBaggageAllowance, setReturnBaggageAllowance]=useState('');
+    const [returnTotalSeats, setReturnTotalSeats]=useState('');
+    const [returnNoOfEconomySeats, setReturnNoOfEconomySeats]=useState('');
+    const [returnNoOfFirstSeats, setReturnNoOfFirstSeats]=useState('');
+    const [returnNoOfBusinessSeats, setReturnNoOfBusinessSeats]=useState('');
+    const [returnEconomyPrice, setReturnEconomyPrice]=useState('');
+    const [returnBusinessPrice, setReturnBusinessPrice]=useState('');
+    const [returnFirstClassPrice, setReturnFirstClassPrice]=useState('');
+    
+    const [returnDepartureTerminal, setReturnDepartureTerminal]=useState('');
+    const [returnArrivalTerminal, setReturnArrivalTerminal]=useState('');
    
     let data;
     let createFlight = (e) => {
@@ -37,21 +50,7 @@ export default function CreateFlight() {
         console.log("adding....");
         setAddedPopUp(false);
         setErrorPopUp(false);
-        // let businessSeatsArr=[];
-        // for(const seat in noOfBusinessSeats){
-        //         businessSeatsArr[seat] = seat+1;
-        // }
-        // setBusinessSeats(businessSeatsArr);
-        // let economySeatsArr=[];
-        // for(const seat in noOfEconomySeats){
-        //         economySeatsArr[seat] = seat+1;
-        // }
-        // setEconomySeats(economySeatsArr);
-        // let firstClassSeatsArr=[];
-        // for(const seat in noOfBusinessSeats){
-        //         firstClassSeatsArr[seat] = seat+1;
-        // }
-        // setFirstClassSeats(firstClassSeatsArr);
+       
        
     if(flightNumber==''||to==''||from==''
         ||departureTime==''||arrivalTime==''||
@@ -60,9 +59,25 @@ export default function CreateFlight() {
         totalSeats==''||noOfBusinessSeats==''||noOfEconomySeats==''
         ||noOfFirstSeats==''||economyPrice==''||businessPrice==''
         ||firstClassPrice==''||arrivalTerminal==''
-        ||departureTerminal==''){
-            setErrorPopUp(true);setErrorPopUp(true);
+        ||departureTerminal==''||returnFlightID==''){
+            setErrorPopUp(true);
             setAddedPopUp(false);
+            console.log("Cond 1");
+            return;
+        }
+
+        if(returnTo==''||returnFrom==''
+        ||returnDepartureTime==''||returnArrivalTime==''||
+        returnDepartureTerminal==''||returnArrivalTerminal==''||
+        returnTripDuration==''||returnBaggageAllowance==''||
+        returnTotalSeats==''||returnNoOfBusinessSeats==''||returnNoOfEconomySeats==''
+        ||returnNoOfFirstSeats==''||returnEconomyPrice==''||returnBusinessPrice==''
+        ||returnFirstClassPrice==''||returnArrivalTerminal==''
+        ||returnDepartureTerminal==''){
+            setErrorPopUp(true);
+            setAddedPopUp(false);
+            
+            console.log("Cond 2");
             return;
         }
        
@@ -84,17 +99,37 @@ export default function CreateFlight() {
             firstClassPrice:firstClassPrice,
             economyPrice:economyPrice,
             returnFlightID:returnFlightID,
-            businessSeats:businessSeats,
-            economySeats:economySeats,
-            firstClassSeats:firstClassSeats
+            availableBusinessSeats:[], 
+            availableEconomySeats:[],
+            availableFirstClassSeats:[],
+            returnTo: returnTo,
+            returnFrom: returnFrom,
+            returnDepartureTime: returnDepartureTime,
+            returnArrivalTime: returnArrivalTime,
+            returnDepartureTerminal: returnDepartureTerminal,
+            returnArrivalTerminal: returnArrivalTerminal,
+            returnTripDuration: returnTripDuration ,
+            returnBaggageAllowance:returnBaggageAllowance,
+            returnTotalSeats:returnTotalSeats,
+            returnNoOfEconomySeats: returnNoOfEconomySeats,
+            returnNoOfBusinessSeats: returnNoOfBusinessSeats,
+            returnNoOfFirstSeats: returnNoOfFirstSeats,
+            returnBusinessPrice:returnBusinessPrice,
+            returnFirstClassPrice:returnFirstClassPrice,
+            returnEconomyPrice:returnEconomyPrice,
+            returnAvailableBusinessSeats:[], 
+            returnAvailableEconomySeats:[],
+            returnAvailableFirstClassSeats:[]
+
           };  
+
        axios
       .post('http://localhost:8000/add-flights', data)
       .then(res => {
         setAddedPopUp(true);
         console.log("added");
         console.log(res.data);
-        this.props.history.push('/');
+        // this.props.history.push('/');
        
       })
       .catch(err => {
@@ -103,6 +138,8 @@ export default function CreateFlight() {
         console.log(err);
       })
     }
+
+    
    
     return (
         <div>
@@ -253,8 +290,138 @@ export default function CreateFlight() {
                 placeholder="Departure Terminal"
                 />
 
+
                 <br></br><br></br>
 
+                <input
+                value={returnTo}
+                onChange={(e) => setReturnTo(e.target.value)}
+                type="text"
+                placeholder="To"
+                />
+                <br></br><br></br>
+                <input
+                value={returnFrom}
+                onChange={(e) => setReturnFrom(e.target.value)}
+                type="text"
+                placeholder="From"
+                />
+
+                <br></br><br></br>
+               
+                <input
+                value={returnDepartureTime}
+                onChange={(e) => setReturnDepartureTime(e.target.value)}
+                type="date"
+                placeholder="Departure Time"
+                />
+
+                <br></br><br></br>
+
+                <input
+                value={returnArrivalTime}
+                onChange={(e) => setReturnArrivalTime(e.target.value)}
+                type="date"
+                placeholder="Arrival Time"
+                />
+
+                <br></br><br></br>
+
+                <input
+                value={returnTripDuration}
+                onChange={(e) => setReturnTripDuration(e.target.value)}
+                type="number"
+                placeholder="Trip Duration"
+                />
+
+                <br></br><br></br>
+
+                <input
+                value={returnBaggageAllowance}
+                onChange={(e) => setReturnBaggageAllowance(e.target.value)}
+                type="number"
+                placeholder="Baggage Allowance"
+                />
+
+                <br></br><br></br>
+
+                <input
+                value={returnTotalSeats}
+                onChange={(e) => setReturnTotalSeats(e.target.value)}
+                type="number"
+                placeholder="Total Seats"
+                />
+
+                <br></br><br></br>
+
+                <input
+                value={returnNoOfBusinessSeats}
+                onChange={(e) => setReturnNoOfBusinessSeats(e.target.value)}
+                type="number"
+                placeholder="Number Of Business Class Seats"
+                />
+
+                <br></br><br></br>
+
+                <input
+                value={returnNoOfEconomySeats}
+                onChange={(e) => setReturnNoOfEconomySeats(e.target.value)}
+                type="number"
+                placeholder="Number Of Economy Seats"
+                />
+
+                <br></br><br></br>
+
+                <input
+                value={returnNoOfFirstSeats}
+                onChange={(e) => setReturnNoOfFirstSeats(e.target.value)}
+                type="number"
+                placeholder="Number Of First Class Seats"
+                />
+
+                <br></br><br></br>
+
+                <input
+                value={returnEconomyPrice}
+                onChange={(e) => setReturnEconomyPrice(e.target.value)}
+                type="number"
+                placeholder="Economy Seat Price"
+                />
+           
+            <br></br><br></br>
+
+            <input
+                value={returnBusinessPrice}
+                onChange={(e) => setReturnBusinessPrice(e.target.value)}
+                type="number"
+                placeholder="Business Seat Price"
+                />
+
+                <br></br><br></br>
+
+                <input
+                value={returnFirstClassPrice}
+                onChange={(e) => setReturnFirstClassPrice(e.target.value)}
+                type="number"
+                placeholder="First Class Seat Price"
+                />
+
+                <br></br><br></br>
+
+                <input
+                value={returnArrivalTerminal}
+                onChange={(e) => setReturnArrivalTerminal(e.target.value)}
+                type="number"
+                placeholder="Arrival Terminal"
+                />
+
+                <br></br><br></br>
+                <input
+                value={returnDepartureTerminal}
+                onChange={(e) => setReturnDepartureTerminal(e.target.value)}
+                type="number"
+                placeholder="Departure Terminal"
+                />
 
                 <input type="submit" value="add flight">
                 </input>
@@ -277,8 +444,6 @@ export default function CreateFlight() {
        
     )
 }
-
-
 
 //         event.preventDefault();
 // const response = await fetch('http://localhost:8000/add-flights',{

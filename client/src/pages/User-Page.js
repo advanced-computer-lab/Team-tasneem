@@ -8,33 +8,16 @@ import { useHistory } from 'react-router-dom';
 import UserSearch from "./UserSearch";
 
 
-function UserHome() {
 
-
-    return(
-
-        <>
-
-        <br></br> <br></br>
-        <br></br>
-        <br></br>
-        <Router>
-            <button>
-                <Link to="/User-Search">
-                Search available Flights
-                </Link>
-            </button>
-
-            <Switch>
-                <Route path="/User-Search">
-                    <UserSearch/>
-                </Route> 
-            </Switch>
-        </Router>
-
-        </>
-    )
+const UserHome = () => {
+    return (
+      <div>
+        <h1>User Page</h1>
+         <button>
+            <Link style={{textDecoration:'none' }} to="/User-Search">Search avaliable flights</Link>
+          </button>
+      </div>
+    );
+  };
     
-}
 export default UserHome;
-

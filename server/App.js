@@ -14,7 +14,7 @@ MongoClient.connect(uri, function (err, client) {
   var db = client.db('myFirstDatabase');
   if (err) throw err;
 
-  // db.createCollection("flights", function (err, res) {
+  // db.createCollection("user", function (err, res) {
   //     if (err) throw err;
   //     console.log("Collection created!");
   //     client.close();
@@ -27,7 +27,7 @@ const port = process.env.PORT || "8000";
 const chalk = require('chalk');
 const cors = require('cors')
 const flightController = require('./src/Routes/flightController');  //router
-// const userController = require('./src/Routes/userController');
+const userController = require('./src/Routes/userController');
 //middleware
 
  
@@ -35,11 +35,11 @@ app.use(cors())
 
 app.use(express.json());
 
-const flight =require("./src/models/flight");
+// const flight =require("./src/models/flight");
 
 app.use('/',flightController);
 
-// app.use('/add-user', userController);
+app.use('/', userController);
 
 
 
@@ -47,51 +47,5 @@ app.use('/',flightController);
 app.listen(port, () => {
   console.log(chalk.bold.yellow(`Listening to requests on http://localhost:${port}`));
 });
-
-// flightController.post('/search-flights', flightController.searchFlights);
-
-
-  // app.get("/view-flights", async (req,res) => {
-   
-  //   try{
-  //     console.log(req.body);
-  //     const [flight] = await flight.find({},(error,data) => {
-  //       if(error){
-  // console.log(error);
-  //       }else{
-  //         console.log(data);
-  //       }
-  //     }
-  //     )
-  //     }    
-  //   catch(err){
-  //     res.json({status:'error'});
-  //   }
-  // }
-  //   )
-  //   app.post("/search-flights", async (req,res) => {
-   
-  //     try{
-  //       console.log(req.body);
-  //       const [flight] = await flight.find({},(error,data) => {
-  //         if(error){
-  //           console.log("ERR");
-  //   console.log(error);
-  //         }else{
-  //           console.log(data);
-  //         }
-  //       }
-  //       )
-  //       }    
-  //     catch(err){
-  //       res.json({status:'error'});
-  //     }
-  //   }
-  //     )
-  
-
-
-  // #Routing to usercontroller here
-
 
 

@@ -17,6 +17,12 @@ const ReservationSchema = new Schema({
     },
     reservedFirstSeats:{
         type = [Number]
+    },
+    reservedAdultsSeats:{
+        type = [Number]
+    },
+    reservedChildrenSeats:{
+        type = [Number]
     }
 
 },
