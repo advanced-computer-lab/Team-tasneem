@@ -8,7 +8,7 @@ import SearchResults from './SearchResults';
 
 export default function SearchFlights() {
 
-    let history = useHistory();
+    
     // const searchResult = useSelector(state=>state.searchflight)
     const [searchFlightNumber, setFlightNumber]=useState('');
     const [searchTo, setTo]=useState('');
@@ -18,12 +18,55 @@ export default function SearchFlights() {
     const [searchDepartureTerminal, setDepartureTerminal]=useState('');
     const [searchArrivalTerminal, setArrivalTerminal]=useState('');
     const [flights, setFlights] = useState([]);
-    // const [searchResults, setSearchResults]=useState([]);
+    const [selectedBusinessSeats, setSelectedBusinessSeats] = useState([]);
+    const [selectedFirstClassSeats, setSelectedFirstClassSeats] = useState([]);
+    const [selectedEconomySeats, setSelectedEconomySeats] = useState([]);
+    const [businessCheckBoxes, setBusinessCheckBoxes] = useState( new Array(chosenFlight.businessSeats.length).fill(false));
+    const [economyCheckBoxes, setEconomyCheckBoxes] = useState( new Array(chosenFlight.economySeats.length).fill(false));
+    const [firstClassCheckBoxes, setFirstClassCheckBoxes] = useState( new Array(chosenFlight.firstClassSeats.length).fill(false));
+    const [chosenFlight, setChosenFlight] = useState({
+                flightNumber:'',
+        to:'',
+        from:'',
+        departureTime:'',
+        arrivalTime:'',
+        tripDuration:'',
+        baggageAllowance:'',
+        totalSeats:'',
+        noOfEconomySeats:'',
+        noOfFirstSeats:'',
+        noOfBusinessSeats:'',
+        economyPrice:'',
+        businessPrice:'',
+        firstClassPrice:'',
+        returnFlightID:'',
+        departureTerminal:'',
+        arrivalTerminal:'',
+        businessSeats:[],
+        economySeats:[],
+        firstClassSeats:[]
+    });
+
   
+    let addBusinessSeat = (seat,index) => {
+        setSelectedBusinessSeats([...selectedBusinessSeats,seat]);
+
+      };
+
+      let addEconomySeat = (seat,index) => {
+        setSelectedEconomySeats([...selectedEconomySeats,seat]);
+      };
+      let addFirstClassSeat = (seat,index) => {
+        setSelectedFirstClassSeats([...selectedFirstClassSeats,seat]);
+      };
+    let showSeats = (selectedFlight) => {
+        setChosenFlight(selectedFlight);
+    }
+
     let data;
     let search = (e) => {
         e.preventDefault();
-    
+        
          data = {
           flightNumber: searchFlightNumber,
           to: searchTo,
@@ -82,19 +125,25 @@ return (
         <h1>Search Flight</h1>
 
         <form onSubmit={search}>
-            <input
+            <label for="number"> Enter Flight Number:</label><br></br><br></br>
+            <input id= "number"
                 value={searchFlightNumber}
                 onChange={(e) => setFlightNumber(e.target.value)}
                 type="text"
                 placeholder="Flight Number" />
             <br></br><br></br>
-            <input
+            <label for="to">
+                Please enter the country you want to visit in this form: CAI, LAX, etc..
+                </label><br></br><br></br>
+            <input id="to"
                 value={searchTo}
                 onChange={(e) => setTo(e.target.value)}
                 type="text"
                 placeholder="To" />
             <br></br><br></br>
-            <input
+            <label for="from">Please enter the country you're coming from in this form: CAI, LAX, etc..</label>
+            <br></br>
+            <input id="from"
                 value={searchFrom}
                 onChange={(e) => setFrom(e.target.value)}
                 type="text"
@@ -140,7 +189,7 @@ return (
 
         </form>
         <div />
-    
+       
         
     </div>
    <div>
@@ -162,101 +211,93 @@ return (
                     <br></br>
                     <p>Arrival Terminal: {flight.arrivalTerminal}</p>
                     <br></br>
-                    <p>Number of business seats: {flight.noOfBusinessSeats}</p> 
-                    {/* attributes missing */}
+                    <p>Number of remaining busuiness seats: {flight.noOfBusinessSeats}</p>
+                    <br></br>
+                    <p>Business ticket price: {flight.businessPrice}</p>
+                    <br></br>
+                    <p>Number of remaining economy seats: {flight.noOfEconomySeats}</p>
+                    <br></br>
+                    <p>Economy ticket price: {flight.economyPrice}</p>
+                    <br></br>
+                    <p>Number of remaining first class seats: {flight.noOfFirstSeats}</p>
+                    <br></br>
+                    <p>First class ticket price: {flight.firstClassPrice}</p>
+                    <br></br>
+                    <p>Baggage Allowance: {flight.baggageAllowance}</p>
+                    <br></br>
+                    <p>Trip duration: {flight.tripDuration}</p>
+                    <br></br>
+                    <p>Return flight ID: {flight.returnFlightID}</p>
+                    <br></br>
+                    <button onClick={showSeats(flight)}>Reserve Flight</button>;
                     </div>
                 ))}
    </div>
+   <div>
+       <h1>Available business seats for flight</h1>
+       {flights.businessSeats.map((seat, index) =>(
+            <div className="topping">
+        <input
+          type="checkbox"
+          id={"seat"+index+1}
+          name="seat"
+          value={"seat " + index+1}
+          checked={businessCheckBoxes[index]}
+          onChange={addBusinessSeat(seat,index)} //callback fn????
+        />
+        seat {index}
+       </div>
+
+       
+       
+       ))}
+   </div>
+
+   <div>
+       <h1>Available first class seats for flight</h1>
+       {chosenFlight.firstClassSeats.map((seat, index) =>(
+            <div className="topping">
+        <input
+          type="checkbox"
+          id={"seat"+index+1}
+          name="seat"
+          value={"seat " + index+1}
+          checked={firstClassCheckBoxes[index]}
+          onChange={addFirstClassSeat(seat,index)}
+        />
+        seat {index}
+       </div>
+
+       
+       
+       ))}
+   </div>
+
+   <div>
+       <h1>Available economy seats for flight</h1>
+       {chosenFlight.economySeats.map((seat, index) =>(
+            <div className="topping">
+        <input
+          type="checkbox"
+          id={"seat"+index+1}
+          name="seat"
+          value={"seat " + index+1}
+          checked={economyCheckBoxes[index]}
+          onChange={addEconomySeat(seat,index)}
+        />
+        seat {index}
+       </div>
+
+       
+       
+       ))}
+   </div>
 
     {/* <Switch>
-          <Route path="/search-results">
-           <SearchResults props = {flights}/>
-         </Route> 
-         </Switch>
+          </Switch>
     </Router> */}
         </>
    
 )
 
 }
-
-// useEffect(() => {
-        
-    // return (
-    //      <SearchResults flights = {flights}/>
-    // )
-
-    // }, []);
-
-                // 
-
-
-
-        //          this.setState({
-        //       flightNumber: '',
-        //       to:'',
-        //       from:'',
-        //       departureTime:Date,
-        //       arrivalTime: Date,
-        //       departureTerminal:Number,
-        //       arrivalTerminal:Number
-        //   })
-
-    
-   
-        // document.title = `You clicked ${flightNumber} times`;
-     
-        // [flightNumber , to , from , departureTime , arrivalTime , departureTerminal , arrivalTerminal]
-    
-//     async function SearchFlights(event){
-//         event.preventDefault();
-
-    //     axios
-    //     .post('http://localhost:8000/search-flights', data)
-    //     .then(res => {
-    //       this.setState({
-    //           flightNumber: '',
-    //           From:'', const displayFlight = (props) => {
-    //           To:'',
-    //           departureTime:Date,
-    //           arrivalTime: Date,
-    //           departureTerminal:Number,
-    //           arrivalTerminal:Number
-    //       })
-    //       console.log("res");
-    //       console.log(res);
-    //       console.log(res.data);
-    //       this.props.history.push('/search-flights',res);
-      
-    //   }
-    //   )
-    //     .catch(err => {
-    //         console.log("error");
-    //         console.log(err);
-    //       console.log("Error in SearchFlight!");
-    //     })
-      
-
-// const response = await fetch('http://localhost:8000/search-flights',{
-//     method:'POST',
-//     headers: {
-//         'Content-Type':'application/json',
-//     },
-//     body: JSON.stringify({
-//         flightNumber,
-//         to,
-//         from,
-//         departureTime,
-//         arrivalTime,
-//         departureTerminal,
-//         arrivalTerminal
-//     }),    
-// }   
-// )
-
-// const data = await response.json();
-// console.log("data");
-// console.log(data);
-//     }
-
-//  console.log(data);

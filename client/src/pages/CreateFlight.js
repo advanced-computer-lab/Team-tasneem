@@ -3,6 +3,7 @@ import {useState} from 'react';
 import axios from "axios";
 import PopUp from "./PopUp";
 
+
 export default function CreateFlight() {
   //add link tag to button to navigate
     const [flightNumber, setFlightNumber]=useState('');
@@ -62,7 +63,6 @@ export default function CreateFlight() {
         ||departureTerminal==''||returnFlightID==''){
             setErrorPopUp(true);
             setAddedPopUp(false);
-            console.log("Cond 1");
             return;
         }
 
@@ -76,8 +76,6 @@ export default function CreateFlight() {
         ||returnDepartureTerminal==''){
             setErrorPopUp(true);
             setAddedPopUp(false);
-            
-            console.log("Cond 2");
             return;
         }
        
@@ -120,7 +118,6 @@ export default function CreateFlight() {
             returnAvailableBusinessSeats:[], 
             returnAvailableEconomySeats:[],
             returnAvailableFirstClassSeats:[]
-
           };  
 
        axios
@@ -445,32 +442,4 @@ export default function CreateFlight() {
     )
 }
 
-//         event.preventDefault();
-// const response = await fetch('http://localhost:8000/add-flights',{
-//     method:'POST',
-//     headers: {
-//         'Content-Type':'application/json',
-//     },
-//     body: JSON.stringify({
-//         flightNumber,
-//         to,
-//         from,
-//         departureTime,
-//         arrivalTime,
-//         tripDuration,
-//         baggageAllowance,
-//         totalSeats,
-//         noOfEconomySeats,
-//         noOfFirstSeats,
-//         noOfBusinessSeats,
-//         economyPrice,
-//         businessPrice,
-//         firstClassPrice,
-//         returnFlightID,
-//         departureTerminal,
-//         arrivalTerminal
-//     }),    
-// })
 
-// const data = await response.json();
-// console.log(data);

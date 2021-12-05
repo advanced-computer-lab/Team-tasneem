@@ -8,16 +8,44 @@ import { useHistory } from 'react-router-dom';
 import UserSearch from "./UserSearch";
 
 
-
 const UserHome = () => {
-    return (
-      <div>
-        <h1>User Page</h1>
-         <button>
-            <Link style={{textDecoration:'none' }} to="/User-Search">Search avaliable flights</Link>
-          </button>
-      </div>
-    );
-  };
+
+
+    return(
+
+        <>
+        <h1>This is User Page</h1>
+        <ul>
+            <li>
+          <Link style={{textDecoration:'none' }} to="/">Home</Link>
+            </li>
+
+            <br></br><br></br>
+            <li>
+                <Link style={{textDecoration:'none' }} to="/User-Login">
+                Login</Link>
+            </li>
+            
+            <br></br><br></br>
+            <li>
+            <Link style={{textDecoration:'none' }} to="/User-Search">Search available flights</Link>
+            </li>
+            <br></br><br></br>
+            
+            <li>
+                <Link style={{textDecoration:'none' }} to="/view-and-cancel-reservations">
+                view my reservations</Link>
+            </li>
+            <br></br><br></br>
+            <li>
+                <Link style={{textDecoration:'none' }} to="/update-user">
+                update my info</Link>
+            </li>
+            
+            
+            </ul>
+        </>
+    )
     
+}
 export default UserHome;

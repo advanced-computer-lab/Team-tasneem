@@ -9,6 +9,7 @@ const FlightSchema = new Schema({
       },
       departureTime: {
         type: Date,
+        
         required: true,
       },
       arrivalTime: {

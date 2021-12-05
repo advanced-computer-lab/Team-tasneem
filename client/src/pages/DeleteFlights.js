@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react'
 import {useState } from 'react';
 //import axios from "axios";
@@ -5,21 +6,18 @@ import {useState } from 'react';
 export default function DeleteFlights() {
     const [flightNumber, setFlightNumber]=useState('');
 
-    async function deleteFlight(event){
+    let deleteFlight = (event, flight) => {
         event.preventDefault();
-       
-const response = await fetch('http://localhost:8000/delete-flights',{
-    method:'DELETE',
-    headers: {
-        'Content-Type':'application/json',
-    },
-    body: JSON.stringify({
-        
-        flightNumber
-       
-    }), 
-
-})
+        let data;
+       axios.delete('http://localhost:8000/delete-flights',flightNumber)
+       .then(result => {
+            // setDeletedPopUp(true);
+            console.log("deleted successfully");
+       })
+       .catch(err => {
+           console.log("error in deleting flight");
+           console.log(err);
+       })
  } 
  return (
         <div>

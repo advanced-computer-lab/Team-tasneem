@@ -1,4 +1,3 @@
-// External variables
 const express = require("express");
 const mongoose = require('mongoose');
 // THIS IS WRONG NEVER DO THAT !! Only for the task we put the DB Link here!! NEVER DO THAAAT AGAIN !!
@@ -14,11 +13,23 @@ MongoClient.connect(uri, function (err, client) {
   var db = client.db('myFirstDatabase');
   if (err) throw err;
 
-  // db.createCollection("user", function (err, res) {
-  //     if (err) throw err;
-  //     console.log("Collection created!");
-  //     client.close();
-  // });
+//   db.createCollection("reservations", function (err, res) {
+//       if (err) throw err;
+//       console.log("Collection created!");
+      
+//   });
+//   db.createCollection("users", function (err, res) {
+//     if (err) throw err;
+//     console.log("Collection created!");
+//     client.close();
+// });
+
+// db.createCollection("flights", function (err, res) {
+//   if (err) throw err;
+//   console.log("Collection created!");
+//   client.close();
+// });
+
 });
 
 //App variables
@@ -28,6 +39,7 @@ const chalk = require('chalk');
 const cors = require('cors')
 const flightController = require('./src/Routes/flightController');  //router
 const userController = require('./src/Routes/userController');
+const reservationController = require('./src/Routes/reservationController');
 //middleware
 
  
@@ -41,11 +53,11 @@ app.use('/',flightController);
 
 app.use('/', userController);
 
+app.use('/', reservationController);
+
 
 
 // Starting server
 app.listen(port, () => {
   console.log(chalk.bold.yellow(`Listening to requests on http://localhost:${port}`));
 });
-
-

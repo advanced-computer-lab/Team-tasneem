@@ -7,36 +7,40 @@ import { useHistory } from 'react-router-dom';
 
 
 
-const AdminHome = () => {
-  return (
-    
 
-    <div>
+
+const AdminHome = () => {
+  console.log("admin");
+
+    return(
+      <div>
       <h1>Admin home</h1>
+
       <ul >
             
-            <button>
-            <Link style={{textDecoration:'none' }} to="/add-flights">Add flight</Link>
-            </button>
-            <br></br><br></br>
-            <button>
-            <Link style={{textDecoration:'none' }} to="/list-flights">List all flights</Link>
-            </button>
-            <br></br><br></br>
-            <button>
-            <Link style={{textDecoration:'none' }} to="/search-flights">Search flights</Link>
-            </button>
-            <br></br><br></br>
-            <button>
-            <Link  style={{textDecoration:'none' }} to="/update-flights">Update a flight</Link>
-            </button>
-            <br></br><br></br>
-            <button>
-            <Link style={{textDecoration:'none' }} to="/delete-flights">Delete a flight </Link>
-            </button>
-      </ul>
-    </div>
-  );
-};
-
+      <li>
+      <Link style={{textDecoration:'none' }} to="/add-flights">Add flight</Link>
+      </li>
+      <br></br><br></br>
+      <li>
+      <Link style={{textDecoration:'none' }} to="/list-flights">List all flights</Link>
+      </li>
+      <br></br><br></br>
+      <li>
+      <Link style={{textDecoration:'none' }} to="/search-flights">Search flights</Link>
+      </li>
+      <br></br><br></br>
+      <li>
+      <Link  style={{textDecoration:'none' }} to="/update-flights">Update a flight</Link>
+      </li>
+      <br></br><br></br>
+      <li>
+      <Link style={{textDecoration:'none' }} to="/delete-flights">Delete a flight </Link>
+      </li>
+</ul>
+</div>
+     
+);
+    
+}
 export default AdminHome;

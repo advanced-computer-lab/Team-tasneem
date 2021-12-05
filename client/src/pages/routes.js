@@ -1,49 +1,44 @@
 import React from 'react'
-import {useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
-import {Link, Switch, Route, BrowserRouter as Router} from 'react-router-dom';
-import axios from "axios";
-import AdminHome from "./Admin-page";
-import UserHome from "./User-Page";
-import SearchResults from './SearchResults'; 
-import CreateFlight from './CreateFlight';
+import UserHome from './User-Page'
+import { Route, Switch, Link, BrowserRouter as Router } from "react-router-dom";
+import UserPage from './User-Page'
+import Home from './Home'
 import ViewFlights from './ViewFlights';
-import SearchFlights from './SearchFlights';
+import UpdateUser from './updateUser'
+import SearchResults from './SearchResults';
 import DeleteFlights from './DeleteFlights';
-import UpdateCreateFlight from './UpdateFlights';
+import CreateFlight from './CreateFlight';
+import UpdateFlights from './UpdateFlights';
 import UserSearch from './UserSearch';
-import Home from './Home';
-
-function Routes() {
-  
-return (
-    <>
-
-    
-   <Router>
-
-     <Switch>
-     <div>
-       <Route exact path="/" component={Home} />
-       <Route  path='/admin-page' component={AdminHome}/>
-       <Route  path='/User-Page' component={UserHome}/>
-       <Route  path='/add-flights' component={CreateFlight}/>
-       <Route  path='/list-flights' component={ViewFlights}/>
-       <Route  path='/search-flights' component={SearchFlights}/>
-       <Route  path='/update-flights' component={UpdateCreateFlight}/>
-       <Route  path='/delete-flights' component={DeleteFlights}/>
-       <Route  path='/User-Search' component={UserSearch}/>
-       <Route  path='/SearchResults' component={SearchResults}/>
-       <Route  path='/delete-flights' component={DeleteFlights}/>
-     </div>
-     </Switch>
-    </Router>
-        </>
-   
-)
+import SearchFlights from './SearchFlights';
+import AdminPage from './Admin-page';
+import UserLogin from './userLogin';
+import viewReservation from './viewReservation'
+import SignUp from './SignUp';
+export default function Routes() {
+    return (
+        <div>
+            <Router>
+  <Switch>
+         <Route exact path = "/" component={Home}></Route>
+         <Route path="/admin-page" component={AdminPage}></Route> 
+         <Route path="/add-flights" component={CreateFlight}></Route> 
+         <Route path="/list-flights" component={ViewFlights}></Route>
+         <Route path="/search-flights" component={SearchFlights}></Route> 
+         <Route path="/update-flights" component={UpdateFlights}></Route> 
+         <Route path="/delete-flights" component={DeleteFlights}></Route> 
+         <Route path="/search-results" component={SearchResults}></Route>
+         <Route path ="/update-user" component={UpdateUser}></Route>
+         <Route path="/User-Page" component={UserPage}></Route> 
+         <Route path="/User-Search" component={UserSearch}></Route> 
+         <Route path="/User-Login" component={UserLogin}></Route> 
+         <Route path="/create-user" component={SignUp}></Route>
+         <Route path="/view-and-cancel-reservations" component={viewReservation}></Route> 
+  </Switch>
 
 
+      </Router>
+
+        </div>
+    )
 }
-
-
-export default Routes;

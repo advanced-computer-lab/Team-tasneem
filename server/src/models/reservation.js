@@ -1,28 +1,30 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// add price!  navigate for redirection
+
 const ReservationSchema = new Schema({
 
     userEmail:{
-        type = String
+        type : String,
     },
     flightNumber:{
-        type = Number
+        type : Number
     },
-    reservedEconomySeats:{
-        type = [Number]
+    returnFlightNumber:{
+        type : Number
     },
-    reservedBusinessSeats:{
-        type = [Number]
+    totalPrice:{
+        type : Number
     },
-    reservedFirstSeats:{
-        type = [Number]
+    reservedSeats:{
+        type : [Number]
     },
-    reservedAdultsSeats:{
-        type = [Number]
+    returnReservedSeats:{
+        type : [Number]
     },
-    reservedChildrenSeats:{
-        type = [Number]
+    ticketType:{
+        type : String
     }
 
 },
