@@ -106,26 +106,26 @@ availableFirstSeats:[]
 
 const [selectedReturnBusinessFlight, setSelectedReturnBusinessFlight] = useState({
         flightNumber:'',
-to:'',
-from:'',
-departureTime:'',
-arrivalTime:'',
-tripDuration:'',
-baggageAllowance:'',
-totalSeats:'',
-noOfEconomySeats:'',
-noOfFirstSeats:'',
-noOfBusinessSeats:'',
-economyPrice:'',
-businessPrice:'',
-firstClassPrice:'',
-returnFlightID:'',
-departureTerminal:'',
-arrivalTerminal:'',
-availableBusinessSeats:[],
-availableEconomySeats:[],
-availableFirstSeats:[]
-});
+        to:'',
+        from:'',
+        departureTime:'',
+        arrivalTime:'',
+        tripDuration:'',
+        baggageAllowance:'',
+        totalSeats:'',
+        noOfEconomySeats:'',
+        noOfFirstSeats:'',
+        noOfBusinessSeats:'',
+        economyPrice:'',
+        businessPrice:'',
+        firstClassPrice:'',
+        returnFlightID:'',
+        departureTerminal:'',
+        arrivalTerminal:'',
+        availableBusinessSeats:[],
+        availableEconomySeats:[],
+        availableFirstSeats:[]
+     });
 // if(searchArrivalTimeI==''){
 //     setSearchArrivalTimeI((new Date()).today());
 // }
@@ -614,7 +614,7 @@ return (
         
         
         <div>
-        <h1>Available economy seats for flight</h1>
+        <h3>Available economy seats for flight</h3>
             {selectedEconomyFlight.availableEconomySeats.map((seat, index) => (
                 <div className="topping">
                  
@@ -637,7 +637,7 @@ return (
             </button>
         </div>
         <div>
-        <h1>Available first class seats for flight</h1>
+        <h3>Available first class seats for flight</h3>
             {selectedFirstClassFlight.availableFirstSeats.map((seat, index) =>(
                  <div className="topping">
                      
@@ -664,7 +664,7 @@ return (
         </div>
         
         <div>
-        <h1>Available business seats for flight</h1>
+        <h3>Available business seats for flight</h3>
             {selectedBusinessFlight.availableBusinessSeats.map((seat, index) =>(
                  <div className="topping">
                      
@@ -746,7 +746,7 @@ return (
 
 
         <div>
-        <h1>Available economy seats for return flight</h1>
+        <h4>Available economy seats for return flight</h4>
             {selectedReturnEconomyFlight.availableEconomySeats.map((seat, index) => (
                 <div className="topping">
                     
@@ -769,7 +769,7 @@ return (
             </button>
         </div>
         <div>
-        <h1>Available first class seats for return flight</h1>
+        <h4>Available first class seats for return flight</h4>
             {selectedReturnFirstClassFlight.availableFirstSeats.map((seat, index) =>(
             
             <div className="masroo2a">
@@ -791,7 +791,7 @@ return (
         </div>
         
         <div>
-        <h1>Available business seats for return flight</h1>
+        <h4>Available business seats for return flight</h4>
             {selectedReturnBusinessFlight.availableBusinessSeats.map((seat, index) =>(
                
                  <div className="topping">
@@ -816,7 +816,7 @@ return (
         </div>
 
 <div>
-<h1>Your reservation's summary:</h1>
+<h2>Your reservation's summary:</h2>
 {confirmFlights.map((flight) => (
 
 <div key={flight.flightNumber} className="flight">
